@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "FleetingNote/2025-07-02.md",
+                "file": "README.ja.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2025-07-02"
+              "title": "README.ja"
             }
           }
         ]
@@ -170,8 +170,11 @@
   },
   "active": "1829a63807d5958a",
   "lastOpenFiles": [
-    "LiteratureNote/ObsidianとGemini CLIで知識を育てる.md",
+    "README.ko.md",
+    "README.md",
+    "README.ja.md",
     "FleetingNote/2025-07-02.md",
+    "LiteratureNote/ObsidianとGemini CLIで知識を育てる.md",
     "LiteratureNote/Kindle本を高速でテキスト化し、AIツールで活用する方法（Mac限定）.md",
     "LiteratureNote/Next.jsを使ったサイトの表示速度改善.md",
     "Daily/2025-07-02.md",
