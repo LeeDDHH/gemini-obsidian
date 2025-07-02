@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "b3c55c2cdf870094",
+        "id": "3d06656314f6e47e",
         "type": "tabs",
         "children": [
           {
-            "id": "08b2643019cb7f90",
+            "id": "678d7f0b475e8b06",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "PermanentNote/AIが変革する知識管理と執筆の未来.md",
+                "file": "PermanentNote/AI가 변화시키는 지식 관리 및 글쓰기의 미래.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "AIが変革する知識管理と執筆の未来"
+              "title": "AI가 변화시키는 지식 관리 및 글쓰기의 미래"
             }
           }
         ]
@@ -168,16 +168,18 @@
       "command-palette:명령어 팔레트 열기": false
     }
   },
-  "active": "08b2643019cb7f90",
+  "active": "678d7f0b475e8b06",
   "lastOpenFiles": [
-    "IndexNote/Index.md",
-    "FleetingNote/2025-07-02.md",
-    "PermanentNote/AIを活用した情報収集と知識整理の効率化.md",
     "PermanentNote/AIが変革する知識管理と執筆の未来.md",
-    "README.ko.md",
-    "Daily/2025-07-02.md",
+    "PermanentNote/AI를 활용한 정보 수집 및 지식 정리 효율화.md",
+    "PermanentNote/AI가 변화시키는 지식 관리 및 글쓰기의 미래.md",
     "README.ja.md",
     "README.md",
+    "IndexNote/Index.md",
+    "PermanentNote/AIを活用した情報収集と知識整理の効率化.md",
+    "README.ko.md",
+    "FleetingNote/2025-07-02.md",
+    "Daily/2025-07-02.md",
     "LiteratureNote/ObsidianとGemini CLIで知識を育てる.md",
     "LiteratureNote/Kindle本を高速でテキスト化し、AIツールで活用する方法（Mac限定）.md",
     "LiteratureNote/Next.jsを使ったサイトの表示速度改善.md",
