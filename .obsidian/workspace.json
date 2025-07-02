@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "c7d2e0d461230294",
+        "id": "61109908abf4612d",
         "type": "tabs",
         "children": [
           {
-            "id": "914ab82c04ed438f",
+            "id": "1829a63807d5958a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Daily/2025-07-02.md",
+                "file": "FleetingNote/2025-07-02.md",
                 "mode": "source",
                 "source": false
               },
@@ -168,10 +168,23 @@
       "command-palette:명령어 팔레트 열기": false
     }
   },
-  "active": "914ab82c04ed438f",
+  "active": "1829a63807d5958a",
   "lastOpenFiles": [
-    "Daily/250702.md",
+    "LiteratureNote/ObsidianとGemini CLIで知識を育てる.md",
+    "FleetingNote/2025-07-02.md",
+    "LiteratureNote/Kindle本を高速でテキスト化し、AIツールで活用する方法（Mac限定）.md",
+    "LiteratureNote/Next.jsを使ったサイトの表示速度改善.md",
     "Daily/2025-07-02.md",
+    "LiteratureNote/ただバックログを消化するだけのチームを変えるための根回し術.md",
+    "LiteratureNote/みんなのアクセシビリティ評価ツールmiChecker.md",
+    "LiteratureNote/Claude Codeでブログ執筆を効率化する方法.md",
+    "LiteratureNote/米国で急増するウェブアクセシビリティ訴訟.md",
+    "LiteratureNote/先読みアサーション.md",
+    "LiteratureNote/Storybook v9.md",
+    "create a link.md",
+    "LiteratureNote/コードの90パーセントをAIが書く世界で何が待っているのか.md",
+    "LiteratureNote/Googleが抽出した10個のカテゴリで技術的負債を捉えなおす.md",
+    "Daily/250702.md",
     "무제.canvas",
     "환영합니다!.md",
     "GEMINI.md",
