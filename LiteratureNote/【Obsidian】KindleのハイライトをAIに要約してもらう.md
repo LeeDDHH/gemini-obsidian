@@ -1,0 +1,5 @@
+# 【Obsidian】KindleのハイライトをAIに要約してもらう
+
+メモアプリObsidianのプラグインを使い、Kindleのハイライト情報をOpenAIのAIに要約させる方法を紹介した記事です。「Kindle Highlights」プラグインでハイライトを自動インポートし、「Text Generator」プラグインでその内容をAIに要約させることで、読書内容の理解を深める仕組みを構築しています。これにより、低コストかつ少ない手間で読書メモを管理できるとしています。
+
+https://zenn.dev/shumpei_nagata/articles/summarize_kindle_highlights_with_openai

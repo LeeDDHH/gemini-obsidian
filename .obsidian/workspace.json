@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "3d06656314f6e47e",
+        "id": "3cef9660d6e7afdd",
         "type": "tabs",
         "children": [
           {
-            "id": "678d7f0b475e8b06",
+            "id": "a7ddeba2aba49697",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "LiteratureNote/先読みアサーション.ko.md",
+                "file": "GEMINI.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "先読みアサーション.ko"
+              "title": "GEMINI"
             }
           }
         ]
@@ -168,34 +168,34 @@
       "command-palette:명령어 팔레트 열기": false
     }
   },
-  "active": "678d7f0b475e8b06",
+  "active": "a7ddeba2aba49697",
   "lastOpenFiles": [
-    "LiteratureNote/先読みアサーション.md",
-    "LiteratureNote/米国で急増するウェブアクセシビリティ訴訟.ko.md",
-    "LiteratureNote/先読みアサーション.ko.md",
-    "LiteratureNote/Claude Code로 블로그 작성 효율화하는 방법.md",
-    "LiteratureNote/みんなのアクセシビリティ評価ツールmiChecker.ko.md",
-    "LiteratureNote/ただバックログを消化するだけのチームを変えるための根回し術.ko.md",
-    "LiteratureNote/コードの90パーセントをAIが書く世界で何が待っているのか.ko.md",
-    "LiteratureNote/Storybook v9.ko.md",
-    "LiteratureNote/Obsidian과 Gemini CLI로 지식을 키우다.md",
-    "LiteratureNote/Next.js를 사용한 사이트 표시 속도 개선.md",
-    "LiteratureNote/Kindle 책을 빠르게 텍스트로 변환하여 AI 도구로 활용하는 방법(Mac 한정).md",
-    "LiteratureNote/Google이 추출한 10가지 카테고리로 기술 부채를 재정의하다.md",
-    "Daily/2025-07-02.md",
-    "PermanentNote/AI가 변화시키는 지식 관리 및 글쓰기의 미래.md",
-    "PermanentNote/AIが変革する知識管理と執筆の未来.md",
-    "PermanentNote/AI를 활용한 정보 수집 및 지식 정리 효율화.md",
-    "README.ja.md",
-    "README.md",
     "IndexNote/Index.md",
-    "PermanentNote/AIを活用した情報収集と知識整理の効率化.md",
-    "README.ko.md",
-    "FleetingNote/2025-07-02.md",
-    "LiteratureNote/ObsidianとGemini CLIで知識を育てる.md",
+    "Daily/2025-07-02.md",
+    "PermanentNote/ソフトウェア品質とチームの生産性.md",
+    "PermanentNote/Next.jsにおけるパフォーマンスとスタイリングの実践.md",
+    "PermanentNote/AI駆動開発の未来と実践.md",
+    "LiteratureNote/React Slotが便利.md",
+    "LiteratureNote/【Obsidian】KindleのハイライトをAIに要約してもらう.md",
+    "LiteratureNote/Kindle 책을 빠르게 텍스트로 변환하여 AI 도구로 활용하는 방법(Mac 한정).md",
     "LiteratureNote/Kindle本を高速でテキスト化し、AIツールで活用する方法（Mac限定）.md",
+    "LiteratureNote/Next.jsのappディレクトリでMUIとEmotionを使ったSSR設定手順.md",
+    "LiteratureNote/Next.js(App Router)の環境にEmotionを導入したときに躓いたこと.md",
+    "LiteratureNote/「Mastering Claude Code in 30 minutes」を見ました.md",
+    "LiteratureNote/ケント・ベック氏講演録：『グッドハートの法則は楽観的すぎた』.md",
+    "LiteratureNote/Server Side Rendering - Emotion.md",
+    "LiteratureNote/Web Content Accessibility Guidelines (WCAG)の概要.md",
+    "PermanentNote/ウェブアクセシビリティの重要性と実践.md",
+    "PermanentNote/AI가 변화시키는 지식 관리 및 글쓰기의 미래.md",
+    "GEMINI.md",
+    "FleetingNote/2025-07-05.md",
+    "FleetingNote/2025-07-02.md",
+    "LiteratureNote/Claude Codeでブログ執筆を効率化する方法.md",
+    "LiteratureNote/Gemini CLI の簡単チュートリアル.md",
+    "LiteratureNote/Next.js를 사용한 사이트 표시 속도 개선.md",
     "LiteratureNote/Next.jsを使ったサイトの表示速度改善.md",
-    "LiteratureNote/ただバックログを消化するだけのチームを変えるための根回し術.md",
+    "LiteratureNote/Can Code Duplication Be a Good Thing.md",
+    "LiteratureNote/遅れること3週間、ようやく「Mastering Claude Code in 30 minutes」を見ました 〜前編：そんなことまでプロンプトで頼めるの！？〜.md",
     "무제.canvas",
     "PermanentNote",
     "LiteratureNote",

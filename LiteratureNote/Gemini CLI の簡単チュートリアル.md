@@ -1,0 +1,3 @@
+このチュートリアルは、Googleが開発したオープンソースのコマンドラインAIエージェント「Gemini CLI」について解説しています。Gemini CLIは、コーディング補助、リサーチ、コンテンツ生成、タスク自動化など、開発者のワークフローを加速させる多目的ツールです。クイックスタートとして、Node.jsのインストールと`npx https://github.com/google-gemini/gemini-cli`コマンドでの利用開始方法が示されています。また、ローカルファイルやディレクトリをコンテキストに追加したり、シェルコマンドを実行したりする機能も紹介されています。さらに、`GEMINI.md`ファイルでプロジェクトごとのカスタム指示をAIに記憶させることができ、高い拡張性を持っています。
+
+Source: https://zenn.dev/schroneko/articles/gemini-cli-tutorial
