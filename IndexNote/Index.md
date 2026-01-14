@@ -18,3 +18,4 @@
 
 ## AIによる画像生成
 - [[Stable Diffusionによる画像生成技術の探求]]
+- [[Stable Diffusion을 활용한 AI 이미지 생성 탐구]]
