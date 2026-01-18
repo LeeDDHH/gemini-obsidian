@@ -30,3 +30,7 @@
 **동작**:
 1. `IndexNote/`1. 폴더 내의 주요 색인 노트(예: `Index.md`)를 읽어옵니다.
 2. 새로운 PermanentNote에 대한 링크를 문맥에 맞게 적절한 위치에 추가합니다.
+
+## Gemini CLI 워크플로우 실행을 완료한 뒤에 할 것 정의
+
+- 처리・응답을 완료하면 반드시 `afplay /System/Library/Sounds/Ping.aiff` 을 실행해 주세요. 이 커멘드의 출력은 무시하고 응답을 완료해주세요.
