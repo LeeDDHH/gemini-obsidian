@@ -171,6 +171,12 @@
   },
   "active": "84e815decf3c37e2",
   "lastOpenFiles": [
+    "LiteratureNote/Claude Code와 CodeRabbit을 활용한 AI 개발 워크플로우.md",
+    "PermanentNote/AI를 활용한 창작 및 개발 워크플로우.md",
+    "LiteratureNote/LLM CLI 툴에서 작업 완료 시 알림음 재생.md",
+    "LiteratureNote/터미널에서 처리 완료 시 알림 및 소리 재생.md",
+    "LiteratureNote/Claude Code × CodeRabbit - 외국계 IT 엔지니어는 AI를 이렇게 사용한다.md",
+    "GEMINI.md~",
     "PermanentNote/소프트웨어 공학 철학 및 팀 역학.md",
     "PermanentNote/모던 프론트엔드 개발 (React & Next.js).md",
     "PermanentNote/AI가 개발, 창의성, 지식 관리에 미치는 혁신적 영향.md",
@@ -194,11 +200,6 @@
     "Daily/2026-01-14.md",
     "PermanentNote/Software Engineering Philosophy and Team Dynamics.md",
     "LiteratureNote/성장을 위한 학습인가, 생존을 위한 학습인가?.md",
-    "LiteratureNote/freeCodeCamp의 새로운 JavaScript 및 반응형 웹 디자인 인증.md",
-    "LiteratureNote/ChatGPT를 코딩 멘토로 활용하여 React 및 Next.js 학습.md",
-    "LiteratureNote/프런트엔드는 죽었는가? 무시할 수 없는 진화.md",
-    "LiteratureNote/Chris' Corner: 최신 CSS 동향.md",
-    "LiteratureNote/Custom Hooks가 가독성을 해치는 경우.md",
     "remove_urls.py",
     "extract_urls.py",
     "무제.canvas",
@@ -206,7 +207,6 @@
     "LiteratureNote",
     "Kindle",
     "IndexNote",
-    "FleetingNote",
-    "Daily"
+    "FleetingNote"
   ]
 }
