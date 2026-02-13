@@ -42,6 +42,54 @@
   - afplay /System/Library/Sounds/Ping.aiff
 - 이 커맨드의 stdout/stderr는 **무시**하고, 실행 후 최종 응답을 종료한다.
 
+### YouTube 소스 처리 규칙
+
+1) 소스 타입 판별
+- URL이 아래 중 하나면 source_type: youtube 로 분류
+- youtube.com/watch?v=...
+- youtu.be/...
+- youtube.com/shorts/...
+
+2) YouTube 요약의 “원문”은 transcript를 우선 사용
+- source_type: youtube 인 경우:
+  - 웹페이지 본문 파싱(HTML 본문 추출)보다 transcript 텍스트를 1순위 입력으로 사용한다.
+  - 가능하면 함께 저장:
+    - video_title
+    - channel
+    - published_at (가능하면)
+    - duration (가능하면)
+
+3) Transcript 확보 전략 (권장 우선순위)
+1. 공식 자막/자동 생성 자막(가능하면 한국어 → 없으면 원어)
+2. 자막이 여러 언어면:
+  - 우선: ko → 없으면 ja 또는 en → 그 외
+3. transcript가 너무 길면:
+  - 전체를 그대로 넣지 말고 타임스탬프 단위로 chunking 후 요약에 사용
+
+4) Transcript가 없을 때 폴백(대체 경로)
+- transcript를 못 구하면 아래 순서로 폴백:
+  1. 영상 설명(description) + 고정댓글(가능하면) 기반 요약
+  2. 그래도 부족하면 “요약 불가(Transcript 없음)”로 처리하고 노트에 사유 기록
+- 단, “transcript 없음”이어도 LiteratureNote는 생성하되:
+  - TL;DR 대신 “요약 실패 사유/다음 액션(자막 켜고 재실행 등)”을 남긴다.
+
+5) 요약 포맷(YouTube 전용 권장)
+- 기본 요약(500~1000자), 장문이면 1000자+
+- 추가로 아래 섹션을 포함(추천):
+  - 타임라인 하이라이트: mm:ss - 요지 5~10개
+  - 핵심 주장/근거/예시
+  - 실무 적용 포인트(내 상황에 어떻게 쓰나)
+  - 검증/추가 확인 질문(2~5개)
+
+6) 생성되는 LiteratureNote frontmatter 예시
+- source_type: youtube
+- source_url: ...
+- source_title: ...
+- channel: ... (가능하면)
+- published_at: ... (가능하면)
+- transcript_lang: ko|en|...
+- has_transcript: true|false
+
 ## `/workflow:create_literature_note_from_daily`
 
 ### 목적
@@ -58,11 +106,62 @@ Daily Note에 수집된 URL을 원문 스냅샷 + 한국어 요약으로 정리�
   - localhost, 사내망 등 접근 불가 URL은 스킵 + 로그
 
 ### 동작
-1. Daily/의 모든 .md 파일을 검색하고, 파일별로 URL 목록을 추출한다.
-2. URL을 정규화한다(말미 /, UTM 제거 옵션 등) → 중복 제거.
-3. 각 URL을 가져온다(HTML → 본문 추출).
-  - 가능하면 제목(title), 발행일/업데이트일, 도메인을 함께 추출한다.
-4. 요약 생성(한국어):
+1. Daily/의 모든 .md 파일을 검색
+  - 파일별 URL 목록 추출
+2. URL 정규화 → 중복 제거
+  - 말미 / 정리, UTM 제거(옵션) 등
+3. URL별 source_type 판별
+  - youtube
+    - youtube.com/watch?v=...
+    - youtu.be/...
+    - youtube.com/shorts/...
+  - web
+    - 위 패턴 외 전부
+4.  원문 확보(요약 입력 원문 생성)
+  - source_type: web
+    - 웹 페이지 본문 가져오기(HTML → 본문 추출)
+    - 가능하면 메타 추출
+      - 제목(title), 발행일/업데이트일, 도메인
+  - source_type: youtube (옵션 A: yt-dlp, HTML fetch 금지)
+    - 원칙
+      - YouTube는 HTML fetch(웹페이지 본문 추출)를 시도하지 않음(차단 빈도 높음)
+      - transcript(자막) 텍스트를 “요약 입력 원문”으로 사용
+    - 자막 추출 실행(영상 다운로드 X, 자막만)
+      - ```
+        yt-dlp \
+          --skip-download \
+          --write-subs --write-auto-subs \
+          --sub-langs "ko,ja,en" \
+          --sub-format "vtt" \
+          -o ".cache/youtube_subs/%(id)s.%(ext)s" \
+          "<YOUTUBE_URL>"
+        ```
+    - .vtt 선택 규칙
+      - 언어 우선순위: ko → ja → en → (기타)
+    - .vtt → plan text 변환
+      - 제거 대상: 타임스탬프/큐 번호/태그/빈 줄
+      - 중복 라인 축약
+    - 변환된 transcript를 “요약 입력 원문”으로 사용
+    - 메타 기록
+      - source_type: youtube
+      - has_transcript: true
+      - transcript_lang: <선택 언어>
+    - 실패 처리(YouTube)
+      - .vtt 미생성/확보 실패 시
+      - has_transcript: false
+      - transcript_lang: N/A
+        - failure_reason(권장)
+        - TRANSCRIPT_NOT_AVAILABLE
+        - TRANSCRIPT_FETCH_FAILED
+        - VIDEO_UNAVAILABLE
+        - REGION_OR_AGE_RESTRICTED
+      - LiteratureNote는 반드시 생성
+        - TL;DR에 “요약 실패 사유/다음 액션” 작성
+      - 다음 액션 예
+        - 자막 유무 확인 후 재시도
+        - 필요 시 쿠키 기반 재시도
+          - yt-dlp --cookies-from-browser chrome ...
+5. 요약 생성(한국어):
   - 기본: 500~1000자
   - “컨텐츠가 많음” 판정 시: 1000~1800자 (상한 권장)
   - “컨텐츠가 매우 많음”이면:
@@ -70,19 +169,34 @@ Daily Note에 수집된 URL을 원문 스냅샷 + 한국어 요약으로 정리�
     - ② 섹션별 요약(헤딩 단위)
     - ③ 핵심 주장/근거/리스크/적용 포인트
     - 형태로 구조화한다.
-5. LiteratureNote/에 새 노트를 생성한다.
-6. Daily Note에서 처리 완료된 URL만 제거한다.
-  - 단, 원문 문맥이 깨질 수 있으니 “URL만 단독 라인일 때만 삭제” 같은 안전 규칙을 둔다(권장).
-7. 처리 결과를 요약 리포트로 출력한다(성공 N개, 실패 N개, 생성 파일 경로).
+6. LiteratureNote/에 새 노트를 생성한다.
+7. Daily Note에서 처리 완료된 URL만 제거한다.
+  - 문맥 훼손 방지 규칙(권장)
+    - “URL 단독 라인”만 삭제
+8. 처리 결과 리포트 출력
+  - 성공 N개, 실패 N개, 생성 파일 경로
 
 ### 생성되는 LiteratureNote 템플릿
-- Frontmatter: type: literature, source_url, source_title, created_at, tags
-- 섹션:
-- TL;DR (3~5줄)
-- 요약(요구 길이)
-- 핵심 포인트 / 인용(필요 시)
-- 내 적용 아이디어(선택)
-- 메타(가져온 시간, 파서/모드 등)
+- Frontmatter(기본)
+  - type: literature
+  - source_url
+  - source_title
+  - created_at
+  - tags
+- Frontmatter(추가 권장)
+  - source_type: youtube|web
+  - has_transcript: true|false
+  - transcript_lang: ko|ja|en|N/A
+  - failure_reason: N/A|TRANSCRIPT_NOT_AVAILABLE|TRANSCRIPT_FETCH_FAILED|VIDEO_UNAVAILABLE|REGION_OR_AGE_RESTRICTED
+- 섹션
+  - TL;DR (3~5줄)
+  - 요약(요구 길이)
+  - 핵심 포인트 / 인용(필요 시)
+  - 내 적용 아이디어(선택)
+  - 메타(가져온 시간, 파서/모드 등)
+- YouTube 전용 권장 출력(가능하면)
+  - 핵심 포인트(주장/근거/예시)
+  - (옵션) 내용이 많으면 섹션별 요약(주제 단위)
 
 
 ## `/workflow:draft_permanent_note`
