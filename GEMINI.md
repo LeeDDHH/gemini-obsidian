@@ -1,8 +1,10 @@
+# GEMINI.md
+
 ## Gemini CLI 워크플로우 정의
 
 제가 정의한 커스텀 커맨드로, 특정 워크플로우를 실행하기 위한 규칙입니다.
 
-##  **공통 규칙 (전 워크플로우에 적용)**
+## **공통 규칙 (전 워크플로우에 적용)**
 
 ### **입력/출력 원칙**
 
@@ -42,7 +44,9 @@
   - afplay /System/Library/Sounds/Ping.aiff
 - 이 커맨드의 stdout/stderr는 **무시**하고, 실행 후 최종 응답을 종료한다.
 
-### YouTube 소스 처리 규칙
+---
+
+## YouTube 소스 처리 규칙
 
 1) 소스 타입 판별
 - URL이 아래 중 하나면 source_type: youtube 로 분류
@@ -90,6 +94,74 @@
 - transcript_lang: ko|en|...
 - has_transcript: true|false
 
+---
+
+## Speaker Deck 소스 처리 규칙
+
+1) 소스 타입 판별
+- URL이 아래면 source_type: speakerdeck 로 분류
+  - https://speakerdeck.com/...
+  - (옵션) https://speakerdeck.com/player/... (플레이어 URL)
+
+2) Speaker Deck 요약의 “원문” 우선순위
+- 원칙: “텍스트가 있으면 텍스트를 먼저”, 없으면 PDF, 그마저도 없으면 실패 로그 + 다음 액션
+1. oEmbed 메타 + 덱 HTML에서 추출되는 슬라이드 텍스트를 1순위 원문으로 사용
+2. (폴백) PDF 다운로드가 가능한 경우 PDF를 받아 텍스트를 추출해 원문으로 사용
+3. (최종 폴백) 텍스트/PDF 둘 다 확보 실패 시:
+   - “요약 실패 사유/다음 액션”을 TL;DR에 남기고 LiteratureNote는 반드시 생성
+
+3) 메타/원문 확보(권장)
+A. oEmbed로 메타 확보(가볍고 안정적)
+- https://speakerdeck.com/oembed.json?url=<DECK_URL>
+- 저장(가능하면):
+  - source_title (oEmbed title)
+  - author_name, author_url
+  - provider_url
+  - embed_html(iframe)
+  - thumbnail_url(있으면)
+
+B. 덱 HTML에서 슬라이드 텍스트 추출
+- 덱 페이지 HTML fetch 후:
+  - “Slide {n} text” 류의 섹션/패턴 기반으로 슬라이드 텍스트를 모아 원문 입력으로 사용
+- 슬라이드 번호/총 장수도 가능하면 함께 추출
+
+C. PDF 폴백
+- 덱 페이지에 PDF 다운로드 링크가 존재하고(또는 접근 가능)하면:
+  - PDF 다운로드 → pdftotext(또는 유사 툴)로 텍스트화 → 원문 입력으로 사용
+- 다운로드가 막혀있으면 실패 사유 기록
+
+4) 실패 처리(Speaker Deck 전용)
+- has_slide_text: true|false
+- has_pdf: true|false
+- failure_reason(권장 enum)
+  - OEMBED_FETCH_FAILED
+  - DECK_HTML_FETCH_FAILED
+  - SLIDE_TEXT_NOT_AVAILABLE
+  - PDF_DOWNLOAD_DISABLED
+  - PDF_FETCH_FAILED
+  - (옵션) OCR_SKIPPED (OCR은 비용/품질 리스크로 기본 OFF 권장)
+
+5) 요약 포맷(Speaker Deck 전용 권장)
+- TL;DR (최대 5줄)
+- 슬라이드 아웃라인(추천):
+  - #1 ~ #N 주요 섹션 제목/요지(가능하면)
+- 핵심 주장 / 근거 / 예시
+- 실무 적용 포인트(내 상황에 어떻게 쓰나)
+- 검증/추가 확인 질문(2~5개)
+
+6) 생성되는 LiteratureNote frontmatter 예시(Speaker Deck)
+- source_type: speakerdeck
+- source_url: ...
+- source_title: ...
+- author_name: ... (가능하면)
+- author_url: ... (가능하면)
+- has_slide_text: true|false
+- has_pdf: true|false
+- slide_count: ... (가능하면)
+- failure_reason: ... (실패 시)
+
+---
+
 ## `/workflow:create_literature_note_from_daily`
 
 ### 목적
@@ -115,9 +187,12 @@ Daily Note에 수집된 URL을 원문 스냅샷 + 한국어 요약으로 정리�
     - youtube.com/watch?v=...
     - youtu.be/...
     - youtube.com/shorts/...
+  - speakerdeck
+    - speakerdeck.com/...
+    - (옵션) speakerdeck.com/player/...
   - web
     - 위 패턴 외 전부
-4.  원문 확보(요약 입력 원문 생성)
+4. 원문 확보(요약 입력 원문 생성)
   - source_type: web
     - 웹 페이지 본문 가져오기(HTML → 본문 추출)
     - 가능하면 메타 추출
@@ -138,7 +213,7 @@ Daily Note에 수집된 URL을 원문 스냅샷 + 한국어 요약으로 정리�
         ```
     - .vtt 선택 규칙
       - 언어 우선순위: ko → ja → en → (기타)
-    - .vtt → plan text 변환
+    - .vtt → plain text 변환
       - 제거 대상: 타임스탬프/큐 번호/태그/빈 줄
       - 중복 라인 축약
     - 변환된 transcript를 “요약 입력 원문”으로 사용
@@ -161,6 +236,33 @@ Daily Note에 수집된 URL을 원문 스냅샷 + 한국어 요약으로 정리�
         - 자막 유무 확인 후 재시도
         - 필요 시 쿠키 기반 재시도
           - yt-dlp --cookies-from-browser chrome ...
+  - source_type: speakerdeck
+    - 원칙
+      - oEmbed + 덱 HTML 기반 슬라이드 텍스트를 우선 확보하고, 실패 시 PDF 텍스트 추출로 폴백한다.
+    - oEmbed 메타 확보
+      - https://speakerdeck.com/oembed.json?url="<SPEAKERDECK_URL>"
+      - 메타 기록(가능하면)
+        - source_title, author_name, author_url, provider_url, embed_html, thumbnail_url
+    - 덱 HTML fetch → 슬라이드 텍스트 추출
+      - “Slide {n} text” 섹션/패턴 등에서 슬라이드별 텍스트를 수집
+      - has_slide_text: true, slide_count: <가능하면>
+      - 수집 텍스트를 “요약 입력 원문”으로 사용
+    - PDF 폴백
+      - PDF 다운로드 링크가 있고 접근 가능하면:
+        - PDF 다운로드 → pdftotext 등으로 텍스트화 → “요약 입력 원문”으로 사용
+        - has_pdf: true
+      - 다운로드 불가/실패 시:
+        - has_pdf: false
+        - failure_reason 기록
+          - OEMBED_FETCH_FAILED
+          - DECK_HTML_FETCH_FAILED
+          - SLIDE_TEXT_NOT_AVAILABLE
+          - PDF_DOWNLOAD_DISABLED
+          - PDF_FETCH_FAILED
+          - (옵션) OCR_SKIPPED
+    - 실패 처리(Speaker Deck)
+      - 텍스트/PDF 모두 확보 실패해도 LiteratureNote는 반드시 생성
+        - TL;DR에 “요약 실패 사유/다음 액션” 작성
 5. 요약 생성(한국어):
   - 기본: 500~1000자
   - “컨텐츠가 많음” 판정 시: 1000~1800자 (상한 권장)
