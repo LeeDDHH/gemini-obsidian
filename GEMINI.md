@@ -96,6 +96,73 @@
 
 ---
 
+## X(구 Twitter) 소스 처리 규칙
+
+1) 소스 타입 판별
+- URL이 아래 패턴이면 source_type: x 로 분류
+  - https://x.com/<user>/status/<id>
+  - https://twitter.com/<user>/status/<id>
+  - https://mobile.twitter.com/<user>/status/<id>
+  - (옵션) https://x.com/i/status/<id> / https://twitter.com/i/status/<id>
+- (옵션) 리스트/프로필 타임라인은 스레드/포스트 정리 목적과 다르므로 기본 스킵(운용 복잡도↑)
+
+2) URL 정규화(중요)
+- x.com → twitter.com 으로 변환(임베드/oEmbed 호환 이슈 회피 목적)
+- UTM 등 트래킹 파라미터 제거(옵션)
+- 최종 canonical 형태: https://twitter.com/<user>/status/<id>
+
+3) X 요약의 “원문” 우선순위
+A. 1순위: oEmbed JSON(가볍고 안정적인 편)
+- oEmbed 엔드포인트 예:
+  - https://publish.twitter.com/oembed?url=<TWEET_URL>&omit_script=true&dnt=true&hide_thread=false
+- oEmbed 응답에서 확보/저장(가능하면)
+  - source_title(없으면 “X post <id>”)
+  - author_name, author_url
+  - provider_name/provider_url
+  - html(임베드 블록)
+- 요약 입력 원문 생성 규칙
+  - html에서 blockquote 내부 텍스트를 HTML→텍스트 변환해 “요약 입력 원문”으로 사용
+  - 링크/해시태그/멘션은 유지(검색 가능성↑)
+  - (옵션) oEmbed html 자체도 노트에 별도 보관(추후 검증용)
+
+B. 2순위(“전체 스레드” 필요 시): 인증 기반 스크레이퍼
+- oEmbed는 보통 “해당 트윗 본문” 확보에는 충분하지만, 스레드 전체를 안정적으로 풀어오기엔 한계가 있다.
+- 이때만 twscrape 같은 인증 기반으로 conversation/thread 수집 모드로 전환
+- 원칙(권장)
+  - 기본 운용은 A(oEmbed)로 커버
+  - “스레드 전체가 진짜로 필요”한 경우에만 B를 켠다(운용/차단/계정 리스크 분리)
+
+C. 최종 폴백: 수동 스냅샷
+- 접근 제한/지역/연령/로그인 요구 등으로 실패 시:
+  - LiteratureNote는 생성하되, TL;DR에 실패 사유 + 다음 액션 기록
+
+4) 실패 처리(X 전용)
+- frontmatter에 아래를 권장:
+  - has_oembed: true|false
+  - has_thread: true|false (twscrape 등으로 스레드 구성 성공 시)
+  - failure_reason: N/A|OEMBED_FETCH_FAILED|POST_UNAVAILABLE|LOGIN_REQUIRED|RATE_LIMITED|NETWORK_BLOCKED|PARSER_FAILED
+
+5) 요약 포맷(X 전용 권장)
+- TL;DR (최대 5줄)
+- 원문(추출 텍스트) 기반 요약(500~1000자, 길면 1000~1800자)
+- 스레드일 때 추가(가능하면)
+  - 스레드 아웃라인(포스트 #1~#N 한 줄 요약)
+  - 논지 전개(주장→근거→예시→결론)
+  - “내 적용 아이디어(실무)” 3개
+
+6) 생성되는 LiteratureNote frontmatter 예시(X)
+- source_type: x
+- source_url: <정규화된 twitter.com URL>
+- source_title: ...
+- author_name: ... (가능하면)
+- author_url: ... (가능하면)
+- post_id: <id> (가능하면)
+- has_oembed: true|false
+- has_thread: true|false
+- failure_reason: ...
+
+---
+
 ## Speaker Deck 소스 처리 규칙
 
 1) 소스 타입 판별
@@ -182,6 +249,7 @@ Daily Note에 수집된 URL을 원문 스냅샷 + 한국어 요약으로 정리�
   - 파일별 URL 목록 추출
 2. URL 정규화 → 중복 제거
   - 말미 / 정리, UTM 제거(옵션) 등
+  - (추가) x.com → twitter.com 정규화(옵션)
 3. URL별 source_type 판별
   - youtube
     - youtube.com/watch?v=...
@@ -190,6 +258,11 @@ Daily Note에 수집된 URL을 원문 스냅샷 + 한국어 요약으로 정리�
   - speakerdeck
     - speakerdeck.com/...
     - (옵션) speakerdeck.com/player/...
+  - x
+    - x.com/<user>/status/<id>
+    - twitter.com/<user>/status/<id>
+    - mobile.twitter.com/<user>/status/<id>
+    - (옵션) x.com/i/status/<id> / twitter.com/i/status/<id>
   - web
     - 위 패턴 외 전부
 4. 원문 확보(요약 입력 원문 생성)
@@ -202,7 +275,7 @@ Daily Note에 수집된 URL을 원문 스냅샷 + 한국어 요약으로 정리�
       - YouTube는 HTML fetch(웹페이지 본문 추출)를 시도하지 않음(차단 빈도 높음)
       - transcript(자막) 텍스트를 “요약 입력 원문”으로 사용
     - 자막 추출 실행(영상 다운로드 X, 자막만)
-      - ```
+      - ```bash
         yt-dlp \
           --skip-download \
           --write-subs --write-auto-subs \
@@ -263,6 +336,41 @@ Daily Note에 수집된 URL을 원문 스냅샷 + 한국어 요약으로 정리�
     - 실패 처리(Speaker Deck)
       - 텍스트/PDF 모두 확보 실패해도 LiteratureNote는 반드시 생성
         - TL;DR에 “요약 실패 사유/다음 액션” 작성
+  - source_type: x
+    - 원칙
+      - X는 로그인/차단/변경이 잦으므로 “가벼운 원문 확보(oEmbed)”를 기본으로 한다.
+      - 스레드 전체가 필요할 때만 인증 기반 수집을 옵션으로 켠다.
+    - oEmbed 메타 확보(권장 1순위)
+      - https://publish.twitter.com/oembed?url="<TWEET_URL>"&omit_script=true&dnt=true&hide_thread=false
+      - 메타 기록(가능하면)
+        - source_title, author_name, author_url, provider_name, provider_url, html
+      - html에서 텍스트 추출(blockquote)
+        - 링크/해시태그/멘션 유지
+      - has_oembed: true
+      - has_thread: false(기본)
+    - 스레드 전체 수집(옵션)
+      - FULL_THREAD_MODE=true 일 때만 실행(권장)
+      - twscrape 등 인증 기반 도구로 conversation/thread 수집
+      - 성공 시:
+        - has_thread: true
+        - 스레드 텍스트를 “요약 입력 원문”으로 사용(포스트 #1~#N)
+    - 실패 처리(X)
+      - oEmbed 실패/게시물 접근 불가 시:
+        - has_oembed: false
+        - has_thread: false
+        - failure_reason(권장)
+          - OEMBED_FETCH_FAILED
+          - POST_UNAVAILABLE
+          - LOGIN_REQUIRED
+          - RATE_LIMITED
+          - NETWORK_BLOCKED
+          - PARSER_FAILED
+      - LiteratureNote는 반드시 생성
+        - TL;DR에 “요약 실패 사유/다음 액션” 작성
+      - 다음 액션 예
+        - URL을 twitter.com 형태로 재시도
+        - 브라우저 로그인 상태/네트워크(회사망) 확인
+        - 필요 시 인증 기반 수집 모드(FULL_THREAD_MODE)로 재시도
 5. 요약 생성(한국어):
   - 기본: 500~1000자
   - “컨텐츠가 많음” 판정 시: 1000~1800자 (상한 권장)
@@ -286,10 +394,22 @@ Daily Note에 수집된 URL을 원문 스냅샷 + 한국어 요약으로 정리�
   - created_at
   - tags
 - Frontmatter(추가 권장)
-  - source_type: youtube|web
-  - has_transcript: true|false
-  - transcript_lang: ko|ja|en|N/A
-  - failure_reason: N/A|TRANSCRIPT_NOT_AVAILABLE|TRANSCRIPT_FETCH_FAILED|VIDEO_UNAVAILABLE|REGION_OR_AGE_RESTRICTED
+  - source_type: youtube|web|speakerdeck|x
+  - (youtube)
+    - has_transcript: true|false
+    - transcript_lang: ko|ja|en|N/A
+    - failure_reason: N/A|TRANSCRIPT_NOT_AVAILABLE|TRANSCRIPT_FETCH_FAILED|VIDEO_UNAVAILABLE|REGION_OR_AGE_RESTRICTED
+  - (speakerdeck)
+    - has_slide_text: true|false
+    - has_pdf: true|false
+    - slide_count: <가능하면>
+    - failure_reason: ...
+  - (x)
+    - has_oembed: true|false
+    - has_thread: true|false
+    - post_id: <id> (가능하면)
+    - author_name/author_url (가능하면)
+    - failure_reason: N/A|OEMBED_FETCH_FAILED|POST_UNAVAILABLE|LOGIN_REQUIRED|RATE_LIMITED|NETWORK_BLOCKED|PARSER_FAILED
 - 섹션
   - TL;DR (3~5줄)
   - 요약(요구 길이)
@@ -299,6 +419,10 @@ Daily Note에 수집된 URL을 원문 스냅샷 + 한국어 요약으로 정리�
 - YouTube 전용 권장 출력(가능하면)
   - 핵심 포인트(주장/근거/예시)
   - (옵션) 내용이 많으면 섹션별 요약(주제 단위)
+- X 전용 권장 출력(가능하면)
+  - 스레드 아웃라인(포스트 #1~#N 한 줄 요약)
+  - 논지 전개(주장→근거→예시→결론)
+  - 내 적용 아이디어(실무) 3개
 
 
 ## `/workflow:draft_permanent_note`
