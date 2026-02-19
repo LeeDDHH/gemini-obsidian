@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "LiteratureNote/Claude Codeを作った“本人”が、思考プロセスを丸ごと語ってしまった動画.md",
+                "file": "LiteratureNote/プロンプトエンジニアリングは、本質ではないけど、以下の能力の結晶対なので、採用や昇進の基本能力値チェックに組み込むのは、きわめて有効だと思う。.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Claude Codeを作った“本人”が、思考プロセスを丸ごと語ってしまった動画"
+              "title": "プロンプトエンジニアリングは、本質ではないけど、以下の能力の結晶対なので、採用や昇進の基本能力値チェックに組み込むのは、きわめて有効だと思う。"
             }
           }
         ]
@@ -171,8 +171,9 @@
   },
   "active": "d898432995485627",
   "lastOpenFiles": [
-    "LiteratureNote/短編 人間がコードを書く時代は終わった.md",
     "LiteratureNote/Claude Codeを作った“本人”が、思考プロセスを丸ごと語ってしまった動画.md",
+    "LiteratureNote/プロンプトエンジニアリングは、本質ではないけど、以下の能力の結晶対なので、採用や昇進の基本能力値チェックに組み込むのは、きわめて有効だと思う。.md",
+    "LiteratureNote/短編 人間がコードを書く時代は終わった.md",
     "LiteratureNote/Untitled 1.md",
     "LiteratureNote/Next js App Router 설계는 \"이것\"만 기억하세요.md",
     "LiteratureNote/Codex 는 컴포넌트 재사용을 잘한다?.md",
@@ -196,7 +197,6 @@
     "LiteratureNote/집에만 오면 의욕 사라지는 ADHD, 환경 하나 바꿨더니 완전히 달라졌습니다(ADHD 완벽 해결법).md",
     "LiteratureNote/무례한 사람 가장 우아하게 제압하는 법 (3단계 심리 기술).md",
     "LiteratureNote/전문가들이 말하는 최고의 스트레스 대처법.md",
-    "LiteratureNote/요즘 20대들이 놓치고 있는 것.md",
     "GEMINI.md~",
     "Untitled 1.base",
     "Untitled.base",
