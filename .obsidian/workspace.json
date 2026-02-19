@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "LiteratureNote/How to Build a Next.js App + Prisma with Ai in ONE PROMPT.md",
+                "file": "LiteratureNote/리액트 메모리 누수, 막는 충격적 비법.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "How to Build a Next.js App + Prisma with Ai in ONE PROMPT"
+              "title": "리액트 메모리 누수, 막는 충격적 비법"
             }
           }
         ]
@@ -171,8 +171,9 @@
   },
   "active": "5884d6e2b3340c69",
   "lastOpenFiles": [
-    "LiteratureNote/Build & Deploy an AI Chat App Next.js App Router Tutorial.md",
     "LiteratureNote/How to Build a Next.js App + Prisma with Ai in ONE PROMPT.md",
+    "LiteratureNote/리액트 메모리 누수, 막는 충격적 비법.md",
+    "LiteratureNote/Build & Deploy an AI Chat App Next.js App Router Tutorial.md",
     "LiteratureNote/클로드 스킬, 서브에이전트, 커맨드 개념 몰랐던 사람 한번에 이해시켜드림.md",
     "LiteratureNote/바이브코딩으로 1시간 만에 AI 서비스 런칭하기 디자인부터 결제, 배포까지.md",
     "LiteratureNote/백엔드 개발을 위해 꼭 알아야 할 전체 구성.md",
@@ -196,7 +197,6 @@
     "LiteratureNote/JP탐색 건너뛰기검색만들기9+아바타 이미지【脳科学】「いい人」は搾取のカモです。「断る恐怖」を消して定時で帰る『全自動回避術』がヤバすぎた【ずんだもん＆ゆっくり解説】.md",
     "LiteratureNote/메모리구조 관점에서 프로세스와 쓰레드를 비교해 보세요 개발자개념장착.md",
     "LiteratureNote/성공을 '상상'하면 안되는 이유.md",
-    "LiteratureNote/AI 잘 다룰수록 반전 커진다...'U자형 심리 곡선'  YTN.md",
     "GEMINI.md~",
     "Untitled 1.base",
     "Untitled.base",
