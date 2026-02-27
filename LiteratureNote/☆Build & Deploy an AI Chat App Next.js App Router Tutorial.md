@@ -1,4 +1,4 @@
-# Build & Deploy an AI Chat App: Next.js App Router Tutorial
+# ☆Build & Deploy an AI Chat App: Next.js App Router Tutorial
 https://www.youtube.com/watch?v=R06lJ3RlxIg
 
 ## **요약 (Next.js + Cohere + Vercel로 스트리밍 AI 채팅앱 만들고 배포)**

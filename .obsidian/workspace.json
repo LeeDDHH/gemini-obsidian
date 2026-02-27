@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "2a1cca97558f1277",
+        "id": "5050dafa0a3b5a30",
         "type": "tabs",
         "children": [
           {
-            "id": "d898432995485627",
+            "id": "68cf13cc6897de32",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Daily/2026-01-14.md",
+                "file": "LiteratureNote/☆Build & Deploy an AI Chat App Next.js App Router Tutorial.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-01-14"
+              "title": "☆Build & Deploy an AI Chat App Next.js App Router Tutorial"
             }
           }
         ]
@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "Build & Deploy an AI Chat App Next.js App Router Tutorial",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -74,7 +74,8 @@
               "title": "북마크"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -169,10 +170,25 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "d898432995485627",
+  "active": "68cf13cc6897de32",
   "lastOpenFiles": [
-    "LiteratureNote/【新社会人へ】人生で取り返しがつかないように感じることBEST5.md",
+    "Untitled.base",
+    "LiteratureNote/☆Build & Deploy an AI Chat App Next.js App Router Tutorial.md",
+    "LiteratureNote/Untitled.md",
+    "Untitled 2.base",
+    "Untitled 1.base",
+    "LiteratureNote/2026-02-19__youtube.com__2eqPBLgVH0U.md",
+    "LiteratureNote/☆CDP 로 AI 토큰 사용량 80% 줄이기(CDP 설치부터 활용 방법까지 - 노션, 피그마, 슬랙, 커서 관련 작업 모두 적용 가능).md",
+    "LiteratureNote/I made a real BMO local AI agent with a Raspberry Pi and Ollama.md",
+    "LiteratureNote/클로드를 만든 사람이 클로드 코드를 쓰는 법 ㄷㄷ.md",
+    "LiteratureNote/【低予算】AIだけでどうぶつの森を作ってみた.md",
+    "LiteratureNote/\"도메인 전문가가 창업하는 시대가 왔습니다\" — 30년 경력 투자자가 본 AI 시대.md",
+    "LiteratureNote/\"이제는 AI로 모델링하는 시대가 찾아왔다🤯\"....\"3D 모델러 총 비상!\".md",
+    "LiteratureNote/【疲れが取れない人へ】推し活は遊びじゃない。オキシトシンで脳を回復させる「生存戦略」です。【ずんだもん＆ゆっくり解説】.md",
+    "LiteratureNote/아직도 RAG 쓰세요? 이거 보고 나면 멈춥니다.md",
     "LiteratureNote/【AIは平均に回帰する】組織でアウトカムが上がらない本質的な理由.md",
+    "Daily/2026-01-14.md",
+    "LiteratureNote/【新社会人へ】人生で取り返しがつかないように感じることBEST5.md",
     "LiteratureNote/ユーザのアクティビティログ(特にオンボーディングから課金まで)を詳細に取っておいて、Codex Automationで毎日そのログを見て改善案を出してもらい、即ABテスト実装をしてもらうの、かなりおすすめ.md",
     "LiteratureNote/プロンプトエンジニアリングは、本質ではないけど、以下の能力の結晶対なので、採用や昇進の基本能力値チェックに組み込むのは、きわめて有効だと思う。.md",
     "LiteratureNote/Claude Codeを作った“本人”が、思考プロセスを丸ごと語ってしまった動画.md",
@@ -182,31 +198,15 @@
     "LiteratureNote/Codex 는 컴포넌트 재사용을 잘한다?.md",
     "LiteratureNote/리액트 메모리 누수, 막는 충격적 비법.md",
     "LiteratureNote/How to Build a Next.js App + Prisma with Ai in ONE PROMPT.md",
-    "LiteratureNote/Build & Deploy an AI Chat App Next.js App Router Tutorial.md",
     "LiteratureNote/클로드 스킬, 서브에이전트, 커맨드 개념 몰랐던 사람 한번에 이해시켜드림.md",
     "LiteratureNote/바이브코딩으로 1시간 만에 AI 서비스 런칭하기 디자인부터 결제, 배포까지.md",
-    "LiteratureNote/백엔드 개발을 위해 꼭 알아야 할 전체 구성.md",
-    "LiteratureNote/개발자는 결국 이렇게 살아남습니다 with 인공지능의 스승 앤드류 응.md",
-    "LiteratureNote/【Day192】大学生エンジニア、6日間でReactのコツは掴めるのか…？.md",
-    "LiteratureNote/요즘 코드 못읽겠다는 사람이 많아짐.md",
-    "LiteratureNote/INFJ·INTJ 밤 11시, 전두엽이 퇴근하면 벌어지는 일.md",
-    "LiteratureNote/무례함엔 상냥할 가치가 없다. 이렇게 말하세요.md",
-    "LiteratureNote/AI뉴스 - 진짜 난리난 Seedance 2.0, Gemini 3 Deep, GPT-5.3-Codex-Spark, GLM-5, M2.5, Simile, AI여친 Clawra 등.md",
-    "LiteratureNote/The Dojo The Agentic Building Blocks for Your AI Agent.md",
-    "LiteratureNote/【チート級】この5つのClaude Code Skillsは個人開発のチートスキルです【Claude Code】.md",
-    "LiteratureNote/성공의 단계에 이르는 빌 에반스의 연습 방법.md",
-    "LiteratureNote/직장 다니시는 분들은 한 번 보시면 좋겠습니다!.md",
-    "LiteratureNote/이 영상이 당신 인생을 바꿉니다. 바이브 코딩 1인 창업 3시간 통합본.md",
     "GEMINI.md~",
-    "Untitled 1.base",
-    "Untitled.base",
     "remove_urls.py",
     "extract_urls.py",
     "무제.canvas",
     "PermanentNote",
     "LiteratureNote",
     "Kindle",
-    "IndexNote",
-    "FleetingNote"
+    "IndexNote"
   ]
 }
